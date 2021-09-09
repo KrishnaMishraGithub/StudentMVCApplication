@@ -14,7 +14,7 @@ namespace StudentMVCApplication.Controllers
     {
         StudentContext studentContext = new StudentContext();
        
-
+//I edited this file.
         //public AccountController(StudentContext studentContext)
         //{
         //    _studentContext = studentContext;
