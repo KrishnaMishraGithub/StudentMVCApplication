@@ -1,0 +1,32 @@
+﻿@model IEnumerable<StudentMVCApplication.Models.Student>
+
+@{
+    ViewData["Title"] = "StudentCard";
+}
+
+<html>
+<body>
+    <div class="container">
+        <div class="row">
+            @foreach (var items in Model)
+            {
+
+                <div class="col-md-4">
+                    <div class="card" style="width: 18rem;">
+
+                        <img src="~/Image/allison-griffith-Q76DPRQ3Ix0-unsplash.jpg" class="card-img-top" alt="some imgae" />
+                        <div class="card-body">
+                            <h5 class="card-title">@items.Fname</h5>
+                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                            <a href='@Url.Action("Details", "StudentController1", new {id= @items.Sid})'class="btn btn-outline-primary">View Details</a>
+                        </div>
+                    </div>
+                </div>
+
+
+            }
+        </div>
+
+    </div>
+</body>
+</html>

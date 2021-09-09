@@ -1,0 +1,168 @@
+﻿
+@model IEnumerable<StudentMVCApplication.Models.Student>
+<h1>Student List</h1>
+
+@if (TempData["CreateMessage"] != null)
+{
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        <span class="alert-icon"><i class="ni ni-like-2"></i></span>
+        <span class="alert-text">@TempData["CreateMessage"]</span>
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+
+}
+else if(TempData["CreateErrorMessage"] != null)
+{
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        <span class="alert-icon"><i class="ni ni-like-2"></i></span>
+        <span class="alert-text">@TempData["CreateErrorMessage"]</span>
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+
+}
+
+
+
+<h1 style="color:Green; text-align:center">@TempData["UpdateMessage"]</h1>
+<h1 style="color: Red; text-align: center">@TempData["UpdateErrorMessage"]</h1>
+<h1 style="color:Green; text-align:center">@TempData["DeleteMessage"]</h1>
+<h1 style="color: Red; text-align: center">@TempData["DeleteErrorMessage"] </h1>
+
+
+
+
+<form asp-controller="StudentController1" asp-action="Create" method="get">
+    <div class="form-group">
+        <input type="submit" value="Add Students" asp-action="Create" class=" btn btn-primary" />
+    </div>
+</form>
+<form asp-controller="StudentController1" asp-action="GetStudent" method="get">
+
+
+    <div class="input-group">
+        <input class="form-control" name="search" type="text" />
+        <div class="input-group-append">
+            <button type="submit" class="btn btn-primary">Search</button>
+        </div>
+    </div>
+</form>
+
+
+<hr />
+<div class="row">
+
+    <div class="col-md-12">
+        <table class="table table-striped table-bordered">
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Sid)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Fname)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Lname)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Age)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.City)
+                    </th>
+                    <th>
+                    </th>
+
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Sid)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Fname)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Lname)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Age)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.City)
+                        </td>
+                        <td>
+                            @Html.ActionLink("Edit", "Edit", new { id = item.Sid }) |
+                            @Html.ActionLink("Details", "Details", new { id = item.Sid }) |
+                            @Html.ActionLink("Delete", "Delete", new { id = item.Sid })
+                        </td>
+
+                    </tr>
+                }
+            </tbody>
+        </table>
+        @{
+            double totalPages = ViewBag.TotalPages;
+            <ul class="pagination justify-content-end">
+                @if (ViewBag.PageNumber == 1)
+                {
+                    <li class="page-link">@Html.ActionLink("Previous", "GetStudent", new { pageNumber = ViewBag.PageNumber }, new { @class = "page-item" })</li>
+                }
+                else
+                {
+                    <li class="page-link">@Html.ActionLink("Previous", "GetStudent", new { pageNumber = ViewBag.PageNumber - 1 })</li>
+                }
+
+
+                @for (int i = 1; i <= totalPages; i++)
+                {
+                    if (i == ViewBag.PageNumber)
+                    {
+                        <li class="page-link">@Html.ActionLink(i.ToString(), "GetStudent", new { pageNumber = i } ,new { BeginAddHtmlAttributeValues=new { @class="Active"} })</li>
+
+                    }
+                    else
+                    {
+                        <li class="page-link">@Html.ActionLink(i.ToString(), "GetStudent", new { pageNumber = i })</li>
+                    }
+
+                }
+                @if (ViewBag.PageNumber == totalPages)
+                {
+                    <li class="page-link">@Html.ActionLink("Next", "GetStudent", new { pageNumber = ViewBag.PageNumber })</li>
+                }
+                else
+                {
+                    <li class="page-link">@Html.ActionLink("Next", "GetStudent", new { pageNumber = ViewBag.PageNumber + 1 })</li>
+                }
+            </ul>
+        }
+
+    </div>
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
